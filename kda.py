@@ -20,7 +20,6 @@ name = input("이름을 입력해주세요: ")
 print("1. 성격 유형")
 survey_results["성격"] = {
     "외향성": get_valid_input("외향성 (1~5): "),
-    "적극성": get_valid_input("적극성 (1~5): "),
     "친화성": get_valid_input("친화성 (1~5): "),
     "성실성": get_valid_input("성실성 (1~5): "),
     "책임감": get_valid_input("책임감 (1~5): "),
@@ -39,7 +38,7 @@ survey_results["통찰력"] = {
 # 팀 내 역할 담당
 print("\n3. 팀 내 역할 담당")
 survey_results["팀 내 역할 담당"] = {
-    "리더십": get_valid_input("리더십 (1~5): "),
+    "리더": get_valid_input("리더 (1~5): "),
     "자료 수집": get_valid_input("자료 수집 (1~5): "),
     "프로젝트 정리 및 시각적 자료 제작": get_valid_input("프로젝트 정리 및 시각적 자료 제작 (1~5): "),
     "발표": get_valid_input("발표 (1~5): ")
