@@ -69,7 +69,7 @@ def conduct_survey():
 
 name, score = conduct_survey()
 
-# 벡터 생성후 행 벡터로 변경
+# 벡터 생성후 행 벡터로 변경후 데이터프레임으로 변경
 df = pd.DataFrame([list(score.values())+[name]])
 
 file_name = "score_list.csv"
