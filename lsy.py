@@ -74,6 +74,6 @@ df = pd.DataFrame([list(score.values())+[name]])
 
 file_name = "score_list.csv"
 if os.path.exists(file_name):
-    df.to_csv(file_name, mode='w',header=False)
-else:
     df.to_csv(file_name, mode='a',header=False)
+else:
+    df.to_csv(file_name, mode='w',header=False)
