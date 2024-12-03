@@ -1,3 +1,6 @@
+import pandas as pd
+import os
+
 def get_score(question):
     while True:
         try:
@@ -15,7 +18,7 @@ def conduct_survey():
     print("설문조사에 오신 것을 환영합니다!")
     user_name = input("이름을 입력해주세요: ")
     print("각 문항에 대해 다음과 같이 응답해주세요:")
-    print("1: 매우 그렇지 않다, 2: 조금 그렇지 않다, 3: 그렇지 않다, 4: 보통이다, 5: 그렇다, 6: 조금 그렇다, 7: 매우 그렇다\n")
+    print("1: 매우 그렇지 않다, 2: 그렇지 않다, 3: 조금 그렇지 않다, 4: 보통이다, 5: 조금 그렇다, 6: 그렇다, 7: 매우 그렇다\n")
 
     questions = {
         "성격": [
@@ -25,11 +28,11 @@ def conduct_survey():
             "독립성 (1~7): ",
             "이성적 (1~7): ",
             "도전적 (1~7): ",
-            "강한 멘탈 (1~7): "
+            "강한 멘탈 (1~7): ",
             "성실성 (1~7): ",
             "책임감 (1~7): " ,
-            "성격이 빠름 (1~7): "
-            "유연성 (1~7): "
+            "성격이 빠름 (1~7): ",
+            "유연성 (1~7): ",
             "계획성 (1~7): "
         ],
         "통찰력": [
@@ -64,9 +67,9 @@ def conduct_survey():
         ]
     }
 
-# 설문 진행 및 점수 계산
+    # 설문 진행 및 점수 계산
     for category, question_list in questions.items():
-        print(f"{category}:")
+        print(f"{category}")
         for question in question_list:
             score = get_score(question)
             scores[category] += score
@@ -75,4 +78,13 @@ def conduct_survey():
     print(scores)
     return user_name, scores
 
-survey_result = conduct_survey()
+name, score = conduct_survey()
+
+# 벡터 생성후 행 벡터로 변경
+df = pd.DataFrame([list(score.values())+[name]])
+
+file_name = "score_list.csv"
+if os.path.exists(file_name):
+    df.to_csv(file_name, mode='a',header=False)
+else:
+    df.to_csv(file_name, mode='w',header=False)
