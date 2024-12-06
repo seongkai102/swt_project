@@ -148,11 +148,8 @@ class Teammate:
       print("profile 설정X")
   
   def role_assign(self):
+    """추천된 팀으로 역할을 랜덤으로 부여하는 코드"""
     role = self.role
-    sublist = role[1:]
-    random.shuffle(sublist)
-    role[1:] = sublist
-
     t = self.my_team
     random.shuffle(t)
 
