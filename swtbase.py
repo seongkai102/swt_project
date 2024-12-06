@@ -8,7 +8,7 @@ class Teammate:
   def __init__(self):
     """기본값 설정(모델, 데이터에 포함된 이름)"""
     self.knn = joblib.load('sknn_model.pkl')
-    self.data = pd.read_csv(r'softsoft.csv').iloc[:, -1]
+    self.data = pd.read_csv(r'ssdata.csv').iloc[:, -1]
     self.role = ["팀장", "ppt", "코딩총괄", "발표", "자료조사", "응원단장"]
     self.place = {"스페이스코웍": [6,8,10,25], "테이블웍스": [3,6,25], "스타온 비즈센터": [4,6],
                   "크럼(카페)":[2,3,4], "전주대 도서관 스터디룸":[3,4,5,6,7,8,9,10], 
@@ -24,10 +24,11 @@ class Teammate:
         while True:
             try:
                 score = int(input(question))  
-                if 1 <= score <= 5:
+                if 1 <= score <= 7:
                     return score
                 else:
-                    print("1부터 5까지의 값만 입력해주세요.")
+                  print("1부터 7까지의 값만 입력해주세요.")
+
             except ValueError:
                 print('유효한 숫자를 입력해주세요.')
 
@@ -40,37 +41,48 @@ class Teammate:
 
     questions = {
         "성격": [
-            "외향성 (1~5): ",
-            "친화성 (1~5): ",
-            "성실성 (1~5): ",
-            "책임감 (1~5): ",
-            "수용성 (1~5): ",
-            "성격이 빠름 (1~5): "
+            "외향성 (1~7): ",
+            "친화성 (1~7): ",
+            "수용성 (1~7): ",
+            "독립성 (1~7): ",
+            "이성적 (1~7): ",
+            "도전적 (1~7): ",
+            "강한 멘탈 (1~7): ",
+            "성실성 (1~7): ",
+            "책임감 (1~7): " ,
+            "성격이 빠름 (1~7): ",
+            "유연성 (1~7): ",
+            "계획성 (1~7): "
         ],
         "통찰력": [
-            "창의적 문제 해결 능력 (1~5): ",
-            "분석적 사고 수준 (1~5): ",
-            "직관적 사고 수준 (1~5): "
+            "문제 해결 능력 (1~7): ",
+            "창의적 사고 (1~7): ",
+            "전략적 사고 (1~7): ",
+            "분석적 사고 수준 (1~7): ",
+            "경험적 사고 (1~7): ",
+            "직관적 사고 수준 (1~7): "
         ],
         "팀 내 역할 담당": [
-            "리더 (1~5): ",
-            "자료 수집 (1~5): ",
-            "프로젝트 정리 및 시각적 자료 제작 (1~5): ",
-            "발표 (1~5): "
+            "리더 (1~7): ",
+            "자료 수집 (1~7): ",
+            "프로젝트 정리 및 시각적 자료 제작 (1~7): ",
+            "발표 (1~7): "
         ],
         "소통": [
-            "적극적으로 의견 교환 (1~5): ",
-            "대화 흐름 주도 (1~5): ",
-            "갈등 상황시 문제 해결 (1~5): "
+            "적극적으로 의견 교환 (1~7): ",
+            "대화 흐름 주도 (1~7): ",
+            "갈등 상황시 문제 해결 능력이 뛰어남 (1~7): ",
+            "피드백 교환 능력 (1~7): ",
+            "정보 공유 능력 (1~7): ",
         ],
         "팀 프로젝트 결과": [
-            "1: 실패한 경우가 많음, 2: 어려움이 많음, 3: 보통, 4: 대체로 성공적, 5: 항상 성공적\n평가 (1~5): "
+            "1: 매우 실패함, 2: 대체로 실패함, 3: 어려움이 많음, 4: 보통, 5: 다소 성공적, 6: 대체로 성공적, 7: 매우 성공적\n평가 (1~7): "
         ],
         "능력": [
-            "1: 경험없음, 2: 배운 적만 있음, 3: 기초적 작업 가능, 4: 능숙함, 5: 매우 능숙함\n코딩 실력 (1~5): ",
-            "수학 실력 (1~5): ",
-            "이론 (1~5): ",
-            "실무 능력 (1~5): "
+            "1: 경험없음, 2: 이론만 배운 적 있음, 3: 기초적 작업과 개념 이해, 4: 기초적 작업 가능, 5: 중급 수준, 6: 능숙함, 7: 매우 능숙함\n코딩 실력 (1~7): ",
+            "수학 실력 (1~7): ",
+            "이론 실력 (1~7): ",
+            "실무 능력 (1~7): "
         ]
     }
 
@@ -81,7 +93,7 @@ class Teammate:
             score = get_score(question)
             scores[category] += score
 
-    profile = [0] + list(scores.values()) # csv에 행번호문제로 0추가해야함
+    profile = list([0] + list(scores.values())) # csv에 행번호문제로 0추가해야함
     self.name = user_name
     self.profile = profile
 
@@ -124,7 +136,6 @@ class Teammate:
       # 인덱스 추출
       _, peoples = self.knn.kneighbors([self.profile], n_neighbors=n, return_distance=True)
       peoples = peoples[0].tolist() # 가까운순으로 되어 있음
-      
       data_y = self.data
 
       # 본인 제거
@@ -135,7 +146,7 @@ class Teammate:
       else:
           peoples = peoples[:(n-1)]
       print(f"추천된 팀원")
-      
+    
       myt = [self.name]
       for most, label in enumerate(peoples):
         print(f"{most+1}번째로 가까운 사람 : {data_y.iloc[label]}") 
@@ -146,10 +157,15 @@ class Teammate:
     
     except NameError:
       print("profile 설정X")
+    except ValueError:
+      print("제대로된 값 입력")
   
   def role_assign(self):
-    """추천된 팀으로 역할을 랜덤으로 부여하는 코드"""
     role = self.role
+    sublist = role[1:]
+    random.shuffle(sublist)
+    role[1:] = sublist
+
     t = self.my_team
     random.shuffle(t)
 
@@ -182,4 +198,4 @@ if __name__ == '__main__':
   s1.my_profile()
   s1.model()
   #s1.recommend()
-  s1.role_assign()
+  #s1.role_assign()
