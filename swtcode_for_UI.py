@@ -149,8 +149,14 @@ class Teammate:
   
   def role_assign(self):
     role = self.role
-    random.shuffle(role)
-    for r, name in zip(role ,self.my_team):
+    sublist = role[1:]
+    random.shuffle(sublist)
+    role[1:] = sublist
+
+    t = self.my_team
+    random.shuffle(t)
+
+    for r, name in zip(role ,t):
       print(f'"{name}" 에게 주어진 역할 : {r}')
 
     if len(role) < len(self.my_team):
