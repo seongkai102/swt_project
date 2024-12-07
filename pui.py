@@ -1,4 +1,4 @@
-# swtbase.py, ssdata.csv, sknn_model.pkl 필요
+# swtbase.py, ssdata.csv, sknn_model.pkl 필요 (같은 디렉토리)
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox, simpledialog
