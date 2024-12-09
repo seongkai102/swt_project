@@ -85,6 +85,7 @@ def main():
         except Exception as e:
             messagebox.showerror("오류", f"모델 기반 팀 생성 중 오류 발생: {e}")
 
+
     # 역할 배정
     def assign_roles():
         try:
@@ -97,6 +98,7 @@ def main():
                 output_area.insert(tk.END, "역할이 남는 사람은 자율적으로 결정해주세요.\n")
         except Exception as e:
             messagebox.showerror("오류", f"역할 배정 중 오류 발생: {e}")
+
 
     # 추천 장소
     def recommend_places():
