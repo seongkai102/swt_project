@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
 import random
+import tkinter as tk
+from tkinter import messagebox, simpledialog
 
 class Teammate:
   """팀 인연 맺기 프로젝트 ><"""
@@ -98,13 +100,13 @@ class Teammate:
     self.profile = profile
 
 
-  def random_team(self):
+  def random_team(self, n):
     """이름중 random으로 팀 만들기"""
     label = self.data.tolist()
     random.shuffle(label)
 
     print("랜덤 팀원 뽑기 입니다.")
-    n = int(input('원하는 팀원의 수 입력 : '))
+    # n = int(input('원하는 팀원의 수 입력 : '))
 
     # 팀 나누기
     team = [] 
@@ -123,9 +125,12 @@ class Teammate:
           team[s].append(name)
 
         del team[-1]
+        
+    return team
 
-    for num, name in enumerate(team):
-       print(f"{num+1}번째팀 : {' '.join(name)}")
+    # 출력
+    # for num, name in enumerate(team):
+    #    print(f"{num+1}번째팀 : {' '.join(name)}")
        
 
   def model(self, n):
