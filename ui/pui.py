@@ -13,7 +13,7 @@ def main_cover():
         img_lab = tk.Label(cover, image=img)
         img_lab.image=img
         img_lab.pack()
-    except Exception as e:
+    except Exception:
         tk.Label(cover, text="이미지를 불러올 수 없습니다.").pack()
     
     tit_lab = tk.Label(cover, text="한/영키 팀 추천 프로그램")
@@ -39,8 +39,7 @@ def main():
     # 프로필 생성
     def create_profile():
         try:
-            teammate.my_profile()
-            messagebox.showinfo("완료", f"{teammate.name}님의 프로필이 생성되었습니다!")
+            teammate.my_profile()  # 프로필 생성 GUI 입력 처리
         except Exception as e:
             messagebox.showerror("오류", f"프로필 생성 중 오류 발생: {e}")
 
@@ -53,12 +52,11 @@ def main():
                 messagebox.showerror("오류", "올바른 숫자를 입력해주세요.")
                 return
 
-            teammate.data = teammate.data.sample(frac=1).reset_index(drop=True)  # 데이터 섞기
-            teams = [teammate.data[i:i + n].tolist() for i in range(0, len(teammate.data), n)]
+            team = teammate.random_team(n)
 
             output_area.insert(tk.END, "랜덤 팀 생성 결과:\n")
-            for idx, team in enumerate(teams, 1):
-                output_area.insert(tk.END, f"{idx}팀: {', '.join(team)}\n")
+            for idx, team in enumerate(team):
+                output_area.insert(tk.END, f"{idx+1}팀: {', '.join(team)}\n")
         except Exception as e:
             messagebox.showerror("오류", f"랜덤 팀 생성 중 오류 발생: {e}")
 
@@ -75,7 +73,7 @@ def main():
                 messagebox.showerror("오류", "올바른 숫자를 입력해주세요.")
                 return
 
-            teammate.model()
+            teammate.model(n)
             if not teammate.my_team:
                 messagebox.showerror("오류", "추천된 팀원이 없습니다.")
                 return
@@ -85,6 +83,7 @@ def main():
                 output_area.insert(tk.END, f"{idx}: {member}\n")
         except Exception as e:
             messagebox.showerror("오류", f"모델 기반 팀 생성 중 오류 발생: {e}")
+
 
     # 역할 배정
     def assign_roles():
@@ -98,6 +97,7 @@ def main():
                 output_area.insert(tk.END, "역할이 남는 사람은 자율적으로 결정해주세요.\n")
         except Exception as e:
             messagebox.showerror("오류", f"역할 배정 중 오류 발생: {e}")
+
 
     # 추천 장소
     def recommend_places():
