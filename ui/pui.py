@@ -1,5 +1,3 @@
-# swtbase.py, ssdata.csv, sknn_model.pkl 필요 (같은 디렉토리)
-from tkinter import *
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 from swtbase import Teammate
@@ -8,24 +6,25 @@ def main_cover():
     cover = tk.Tk()
     cover.title("한/영키 팀 추천 프로그램")
     cover.geometry("500x600")
+
     try:
-        img = PhotoImage(file="cover_image.png", master=cover)
+        img = tk.PhotoImage(file="cover_image.png", master=cover)
         img_lab = tk.Label(cover, image=img)
-        img_lab.image=img
+        img_lab.image = img
         img_lab.pack()
     except Exception:
         tk.Label(cover, text="이미지를 불러올 수 없습니다.").pack()
-    
+
     tit_lab = tk.Label(cover, text="한/영키 팀 추천 프로그램")
     tit_lab.pack()
 
     def start_app():
         cover.destroy()
         main()
+
     start_button = tk.Button(cover, text="다음", command=start_app)
     start_button.pack()
     cover.mainloop()
-
 
 def main():
     teammate = Teammate()
@@ -36,31 +35,28 @@ def main():
     output_area = tk.Text(root, height=20, width=60, wrap="word")
     output_area.pack(pady=10)
 
-    # 프로필 생성
     def create_profile():
         try:
-            teammate.my_profile()  # 프로필 생성 GUI 입력 처리
+            teammate.my_profile()
         except Exception as e:
             messagebox.showerror("오류", f"프로필 생성 중 오류 발생: {e}")
 
-    # 랜덤 팀 생성
     def random_team():
         try:
-            output_area.delete(1.0, tk.END) # 초기화
+            output_area.delete(1.0, tk.END)
             n = simpledialog.askinteger("랜덤 팀 생성", "팀당 인원 수를 입력하세요:")
             if not n or n <= 0:
                 messagebox.showerror("오류", "올바른 숫자를 입력해주세요.")
                 return
 
-            team = teammate.random_team(n)
+            teams = teammate.random_team(n)
 
             output_area.insert(tk.END, "랜덤 팀 생성 결과:\n")
-            for idx, team in enumerate(team):
-                output_area.insert(tk.END, f"{idx+1}팀: {', '.join(team)}\n")
+            for idx, team in enumerate(teams):
+                output_area.insert(tk.END, f"{idx + 1}팀: {', '.join(team)}\n")
         except Exception as e:
             messagebox.showerror("오류", f"랜덤 팀 생성 중 오류 발생: {e}")
 
-    # 모델 기반 팀 생성
     def model_team():
         try:
             if not teammate.profile:
@@ -79,13 +75,11 @@ def main():
                 return
 
             output_area.insert(tk.END, "모델 기반 팀 추천 결과:\n")
-            for idx, member in enumerate(teammate.my_team[:n+1], 1):
+            for idx, member in enumerate(teammate.my_team[:n + 1], 1):
                 output_area.insert(tk.END, f"{idx}: {member}\n")
         except Exception as e:
             messagebox.showerror("오류", f"모델 기반 팀 생성 중 오류 발생: {e}")
 
-
-    # 역할 배정
     def assign_roles():
         try:
             output_area.delete(1.0, tk.END)
@@ -98,8 +92,6 @@ def main():
         except Exception as e:
             messagebox.showerror("오류", f"역할 배정 중 오류 발생: {e}")
 
-
-    # 추천 장소
     def recommend_places():
         try:
             output_area.delete(1.0, tk.END)
@@ -115,8 +107,6 @@ def main():
         except Exception as e:
             messagebox.showerror("오류", f"추천 장소 중 오류 발생: {e}")
 
-
-    # 버튼 추가
     buttons = [
         ("프로필 생성", create_profile),
         ("랜덤 팀 생성", random_team),
@@ -128,7 +118,6 @@ def main():
         tk.Button(root, text=text, command=command, width=30).pack(pady=5)
 
     root.mainloop()
-
 
 if __name__ == "__main__":
     main_cover()
