@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 from swtbase import Teammate
 
+
 def main_cover():
     cover = tk.Tk()
     cover.title("한/영키 팀 추천 프로그램")
@@ -25,6 +26,7 @@ def main_cover():
     start_button = tk.Button(cover, text="다음", command=start_app)
     start_button.pack()
     cover.mainloop()
+
 
 def main():
     teammate = Teammate()
@@ -102,7 +104,8 @@ def main():
             output_area.insert(tk.END, "추천 장소:\n")
             for place, capacities in teammate.place.items():
                 output_area.insert(
-                    tk.END, f"장소: {place}, 수용 가능 인원: {', '.join(map(str, capacities))}\n"
+                    tk.END,
+                    f"장소: {place}, 수용 가능 인원: {', '.join(map(str, capacities))}\n",
                 )
         except Exception as e:
             messagebox.showerror("오류", f"추천 장소 중 오류 발생: {e}")
@@ -118,6 +121,7 @@ def main():
         tk.Button(root, text=text, command=command, width=30).pack(pady=5)
 
     root.mainloop()
+
 
 if __name__ == "__main__":
     main_cover()
