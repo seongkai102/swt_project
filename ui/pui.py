@@ -113,10 +113,19 @@ def main():
         except Exception as e:
             messagebox.showerror("오류", f"추천 장소 중 오류 발생: {e}")
 
-    buttons = [
+    # 버튼 직접 생성
+    button_list = [
         ("프로필 생성", create_profile),
         ("랜덤 팀 생성", random_team),
         ("모델 기반 팀 생성", model_team),
         ("역할 배정", assign_roles),
         ("추천 장소", recommend_places),
     ]
+    for text, command in button_list:
+        tk.Button(root, text=text, command=command, width=30).pack(pady=5)
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main_cover()
