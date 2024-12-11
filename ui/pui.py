@@ -77,7 +77,9 @@ def main():
                 return
 
             output_area.insert(tk.END, "모델 기반 팀 추천 결과:\n")
-            for idx, member in enumerate(teammate.my_team[:n + 1], 1):
+            for idx, member in enumerate(
+                teammate.my_team[: n + 1], 1
+            ):
                 output_area.insert(tk.END, f"{idx}: {member}\n")
         except Exception as e:
             messagebox.showerror("오류", f"모델 기반 팀 생성 중 오류 발생: {e}")
