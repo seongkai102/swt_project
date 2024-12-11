@@ -78,7 +78,8 @@ def main():
 
             output_area.insert(tk.END, "모델 기반 팀 추천 결과:\n")
             for idx, member in enumerate(
-                teammate.my_team[: n + 1], 1
+                teammate.my_team[: n + 1],
+                1
             ):
                 output_area.insert(tk.END, f"{idx}: {member}\n")
         except Exception as e:
@@ -119,11 +120,3 @@ def main():
         ("역할 배정", assign_roles),
         ("추천 장소", recommend_places),
     ]
-    for text, command in buttons:
-        tk.Button(root, text=text, command=command, width=30).pack(pady=5)
-
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    main_cover()
