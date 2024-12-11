@@ -4,12 +4,16 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 from swtbase import Teammate
 
+
 def main_cover():
+
+    mx, my = Teammate.win()
+
     cover = tk.Tk()
     cover.title("한/영키 팀 추천 프로그램")
-    cover.geometry("500x600")
+    cover.geometry(f"500x600+{mx}+{my}")
     try:
-        img = PhotoImage(file="cover_image.png", master=cover)
+        img = PhotoImage(file=r"이미지 경로", master=cover)
         img_lab = tk.Label(cover, image=img)
         img_lab.image=img
         img_lab.pack()
@@ -28,10 +32,13 @@ def main_cover():
 
 
 def main():
+
+    mx, my = Teammate.win()
+
     teammate = Teammate()
     root = tk.Tk()
     root.title("한/영키 팀 추천 프로그램")
-    root.geometry("500x600")
+    root.geometry(f"500x600+{mx}+{my}")
 
     output_area = tk.Text(root, height=20, width=60, wrap="word")
     output_area.pack(pady=10)
@@ -79,7 +86,7 @@ def main():
                 messagebox.showerror("오류", "추천된 팀원이 없습니다.")
                 return
 
-            output_area.insert(tk.END, "모델 기반 팀 추천 결과:\n")
+            output_area.insert(tk.END, "모델 기반 팀 추천 결과\n")
             for idx, member in enumerate(teammate.my_team[:n+1], 1):
                 output_area.insert(tk.END, f"{idx}: {member}\n")
         except Exception as e:
