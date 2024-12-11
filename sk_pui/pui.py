@@ -13,7 +13,7 @@ def main_cover():
     cover.title("한/영키 팀 추천 프로그램")
     cover.geometry(f"500x600+{mx}+{my}")
     try:
-        img = PhotoImage(file=r"C:\Users\lsy45\OneDrive\바탕 화면\programs\school-vs\swt_project\sk_pui\cover_image.png", master=cover)
+        img = PhotoImage(file=r"이미지 경로", master=cover)
         img_lab = tk.Label(cover, image=img)
         img_lab.image=img
         img_lab.pack()
