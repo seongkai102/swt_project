@@ -1,5 +1,4 @@
 import tkinter as tk
-
 from tkinter import messagebox, simpledialog
 from swtbase import Teammate
 

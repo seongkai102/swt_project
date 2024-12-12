@@ -175,11 +175,6 @@ class Teammate:
 
         return roles, len(role) < len(self.my_team)
 
-        # for r, name in zip(role, t):
-        #     print(f'"{name}" 에게 주어진 역할 : {r}')
-
-        # if len(role) < len(self.my_team):
-        #     print("남으신 분들은 자율적으로 정해주세요.")
 
     def recommend(self):
         team_size = len(self.my_team)
