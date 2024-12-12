@@ -125,7 +125,7 @@ def main():
         ("랜덤 팀 생성", random_team)
     ]
     for text, command in buttons:
-        tk.Button(root, text=text, command=command, width=30).pack(pady=5)
+        tk.Button(root, text=text, command=command, width=30).pack()
 
     root.mainloop()
 
